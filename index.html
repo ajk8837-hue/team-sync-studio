@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Team Sync Studio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap">
+<style>
+:root{--bg:#f6f5fa;--card:#fff;--ink:#1d1a2b;--mut:#615d75;--ac:#57068c;--ac2:#0e8a7d;--ln:#dcd8e8;--soft:#efe9f6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141220;--card:#1e1b2e;--ink:#eeeaf8;--mut:#a9a4bf;--ac:#b98cf0;--ac2:#4cc9b8;--ln:#3a3553;--soft:#2a2540}}
+:root[data-theme="dark"]{--bg:#141220;--card:#1e1b2e;--ink:#eeeaf8;--mut:#a9a4bf;--ac:#b98cf0;--ac2:#4cc9b8;--ln:#3a3553;--soft:#2a2540}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Bricolage Grotesque",system-ui,sans-serif}
+.w{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:clamp(2rem,6vw,3.2rem);line-height:1.05;margin:8px 0 8px;font-weight:800;letter-spacing:-.02em}
+h2{font-size:1.4rem;margin:0 0 4px}h3{font-size:1.05rem;margin:18px 0 6px}
+.lead{color:var(--mut);max-width:62ch;margin:0 0 20px}
+nav{display:flex;gap:8px;margin:16px 0}
+nav button{flex:1;padding:10px;border:1px solid var(--ln);background:var(--card);color:var(--ink);border-radius:10px;font:inherit;font-weight:600;cursor:pointer}
+nav button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+:root[data-theme="dark"] nav button.on,:root:not([data-theme="light"]) nav button.on{color:#141220}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:18px;margin:14px 0}
+label.f{display:block;font-weight:600;margin:14px 0 4px}
+input[type=text],input[type=date],textarea,select{width:100%;padding:10px;border:1px solid var(--ln);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit}
+textarea{min-height:90px}
+.opt{display:flex;gap:8px;align-items:flex-start;padding:6px 0}
+.opt input{margin-top:5px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{border:1px solid var(--ln);border-radius:99px;padding:5px 12px;cursor:pointer}
+.chips input{margin-right:6px}
+.rg{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid var(--ln)}
+.rg .n{display:flex;gap:4px}.rg .n label{display:flex;flex-direction:column;align-items:center;font-size:.75rem;color:var(--mut);padding:2px 6px}
+input[type=range]{width:100%;accent-color:var(--ac)}
+.sc{display:flex;justify-content:space-between;color:var(--mut);font-size:.85rem}
+button.go{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:12px 20px;font:inherit;font-weight:700;cursor:pointer;margin:8px 8px 0 0}
+:root[data-theme="dark"] button.go,:root:not([data-theme="light"]) button.go{color:#141220}
+button.go.alt{background:var(--soft);color:var(--ink);border:1px solid var(--ln)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--ac2);outline-offset:2px}
+details{border:1px solid var(--ln);border-radius:10px;padding:10px 14px;margin:14px 0;background:var(--bg)}
+summary{font-weight:700;cursor:pointer}
+.code{font-family:ui-monospace,monospace;font-size:.8rem;word-break:break-all}
+.note{color:var(--mut);font-size:.88rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.mem{border:1px solid var(--ln);border-radius:12px;padding:14px;background:var(--card)}
+.mem b{font-size:1.1rem}.tag{display:inline-block;background:var(--soft);border-radius:6px;padding:1px 8px;margin:2px 4px 2px 0;font-size:.82rem}
+.tl{border-left:3px solid var(--ac);margin:8px 0 8px 6px;padding-left:14px}
+.tl .it{padding:6px 0}.tl .d{font-weight:800}.tl .past{opacity:.55}
+.wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:480px}td,th{border-bottom:1px solid var(--ln);padding:8px;text-align:left;vertical-align:top}
+.bar{height:8px;border-radius:4px;background:var(--soft);overflow:hidden}.bar i{display:block;height:100%;background:var(--ac2)}
+.warn{border-left:4px solid var(--ac);padding:4px 12px;background:var(--soft);border-radius:6px;margin:8px 0}
+@media print{nav,.noprint,button{display:none!important}body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+<div class="w">
+<h1>Team Sync Studio</h1>
+<p class="lead">Each teammate answers a short workstyle quiz. Then the team pastes everyone’s profile codes, adds its deadlines, and gets roles, milestones, and working agreements built from High Performance Teams concepts.</p>
+<nav class="noprint"><button id="t1" class="on">1. My profile</button><button id="t2">2. Team plan</button></nav>
+
+<section id="s1">
+<div class="card">
+<h2>About you</h2>
+<label class="f" for="nm">First name</label><input type="text" id="nm" maxlength="30" autocomplete="off">
+<div id="qs"></div>
+<label class="f" for="dl">Deadline style</label>
+<input type="range" id="dl" min="1" max="5" value="3"><div class="sc"><span>I finish early</span><span>I work best near the deadline</span></div>
+<label class="f" for="fmt">Where I do my best teamwork</label>
+<select id="fmt"><option value="0">In person</option><option value="1">Online (video or chat)</option><option value="2" selected>A mix of both</option></select>
+<label class="f">Times I can usually meet</label>
+<div class="chips" id="times"></div>
+<label class="f">Which role gives you energy? (1 = avoid, 5 = love)</label><div id="roles"></div>
+<label class="f">Industries or topics I’d like to build our organization around</label><div class="chips" id="ints"></div>
+<label class="f" for="kn">What I already know that could help (internships, classes, hobbies, experiences)</label>
+<textarea id="kn" placeholder="Example: worked at a nonprofit, took marketing, know the restaurant industry"></textarea>
+<label class="f">What worries me most about team projects</label><div class="chips" id="wor"></div>
+</div>
+<details><summary>Emotional intelligence check (optional, about 5 minutes)</summary>
+<p class="note">Rate each statement from 1 (does not apply) to 3 (applies half the time) to 5 (always applies). Adapted from the NHS Leadership Academy “Leading across London” questionnaire. It is not a validated psychometric test, and answers shift with your mood. Answer all 50 or none.</p>
+<div id="ei"></div></details>
+<button class="go" id="mk">Create my profile code</button>
+<div id="out" class="card" hidden>
+<h2>Your profile code</h2>
+<p class="note">Copy this and send it to the teammate who builds the plan (or paste all four codes in the Team plan tab). It contains only your quiz answers.</p>
+<textarea id="code" class="code" readonly></textarea>
+<button class="go alt" id="cp">Copy code</button>
+<div id="eires"></div>
+</div>
+</section>
+
+<section id="s2" hidden>
+<div class="card noprint">
+<h2>Build the team plan</h2>
+<label class="f" for="codes">Paste each teammate’s profile code, one per line</label>
+<textarea id="codes" class="code"></textarea>
+<h3>Deadlines (leave blank to skip)</h3>
+<div id="dls"></div>
+<p class="note">Milestones are set backward from each date. Late submissions lose 25% per 24 hours, so every plan finishes two days early.</p>
+<button class="go" id="gen">Generate team plan</button><button class="go alt" id="demo">Try sample team</button>
+</div>
+<div id="plan"></div>
+</section>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const Q=[["In a disagreement, I usually…",["State my view directly and stick to the facts","Talk it through out loud, with energy","Listen first and keep concerns to myself unless asked"]],
+["In team meetings I tend to…",["Stay on the agenda and move to action","Brainstorm and jump in with ideas","Stay quiet and take it all in"]],
+["When I message teammates I prefer…",["Short, clear, task-focused messages","Calls or voice notes with lots of back-and-forth","Considerate messages with time to reply"]]];
+const STY=["Linear-active","Multi-active","Reactive"];
+const TIMES=["Weekday mornings","Weekday afternoons","Weekday evenings","Weekends"];
+const RL={pm:["Project manager and facilitator","owns the calendar, runs meetings, checks the plan weekly"],res:["Research lead","gathers facts and makes sure each member’s unique knowledge surfaces"],wri:["Writer and editor","keeps one voice across the paper and checks it against the rubric"],pre:["Presentation lead","owns slides and rehearsals while everyone still speaks"]};
+const RK=Object.keys(RL);
+const INT=["Healthcare","Technology","Sustainability","Food and hospitality","Education","Finance","Media and entertainment","Retail and fashion","Nonprofit or social impact"];
+const WOR=["Free riders","Unclear roles","Conflict","Last-minute crunch","Being talked over","Doing too much of the work"];
+const EIQ=["I realise immediately when I lose my temper","I can ‘reframe’ bad situations quickly","I am able to always motivate myself to do difficult tasks","I am always able to see things from the other person’s viewpoint","I am an excellent listener","I know when I am happy","I do not wear my ‘heart on my sleeve’","I am usually able to prioritise important activities at work and get on with them","I am excellent at empathising with someone else’s problem","I never interrupt other people’s conversations","I usually recognise when I am stressed","Others can rarely tell what kind of mood I am in","I always meet deadlines","I can tell if someone is not happy with me","I am good at adapting and mixing with a variety of people","When I am being ‘emotional’ I am aware of this","I rarely ‘fly off the handle’ at other people","I never waste time","I can tell if a team of people are not getting along with each other","People are the most interesting thing in life for me","When I feel anxious I usually can account for the reason(s)","Difficult people do not annoy me","I do not prevaricate","I can usually understand why people are being difficult towards me","I love to meet new people and get to know what makes them ‘tick’","I always know when I’m being unreasonable","I can consciously alter my frame of mind or mood","I believe you should do the difficult things first","Other individuals are not ‘difficult’ just ‘different’","I need a variety of work colleagues to make my job interesting","Awareness of my own emotions is very important to me at all times","I do not let stressful situations or people affect me once I have left work","Delayed gratification is a virtue that I hold to","I can understand if I am being unreasonable","I like to ask questions to find out what is important to people","I can tell if someone has upset or annoyed me","I rarely worry about work or life in general","I believe in ‘Action this Day’","I can understand why my actions sometimes offend others","I see working with difficult people as simply a challenge to win them over","I can let anger ‘go’ quickly so that it no longer affects me","I can suppress my emotions when I need to","I can always motivate myself even when I feel low","I can sometimes see things from others’ point of view","I am good at reconciling differences with other people","I know what makes me happy","Others often do not know how I am feeling about things","Motivation has been the key to my success","Reasons for disagreements are always clear to me","I generally build solid relationships with those I work with"];
+const EIN=["Self-awareness","Managing emotions","Motivating oneself","Empathy","Social skill"];
+const chk=(id,arr,nm)=>$(id).innerHTML=arr.map((t,i)=>`<label><input type="checkbox" name="${nm}" value="${i}">${t}</label>`).join("");
+$("qs").innerHTML=Q.map((q,i)=>`<label class="f">${q[0]}</label>`+q[1].map((o,j)=>`<label class="opt"><input type="radio" name="q${i}" value="${j}"> ${o}</label>`).join("")).join("");
+chk("times",TIMES,"tm");chk("ints",INT,"in");chk("wor",WOR,"wo");
+$("roles").innerHTML=RK.map((k,i)=>`<div class="rg"><span>${RL[k][0]}</span><input type="range" min="1" max="5" value="3" id="r${i}"></div>`).join("");
+$("ei").innerHTML=EIQ.map((t,i)=>`<div class="rg"><span>${i+1}. ${t}</span><div class="n">${[1,2,3,4,5].map(v=>`<label>${v}<input type="radio" name="e${i}" value="${v}"></label>`).join("")}</div></div>`).join("");
+const vals=nm=>[...document.querySelectorAll(`input[name=${nm}]:checked`)].map(x=>+x.value);
+function eiScore(a){const t=[0,0,0,0,0];a.forEach((v,i)=>t[i%5]+=v);return t}
+function band(n){return n>=35?["Strength","This is a strength"]:n>=18?["Needs attention","Giving attention here will pay dividends"]:["Development priority","Make this a development priority"]}
+function profile(){
+ const c=[0,0,0];Q.forEach((q,i)=>{const v=vals("q"+i);if(v.length)c[v[0]]++});
+ const a=[];for(let i=0;i<50;i++){const v=vals("e"+i);a.push(v.length?v[0]:0)}
+ const n=a.filter(Boolean).length;
+ if(n>0&&n<50){alert("The emotional intelligence check has "+(50-n)+" unanswered statements. Answer all 50 or clear it.");return null}
+ return{n:$("nm").value.trim()||"Teammate",c,d:+$("dl").value,m:+$("fmt").value,t:vals("tm"),r:RK.map((k,i)=>+$("r"+i).value),i:vals("in"),k:$("kn").value.trim(),w:vals("wo"),e:n?eiScore(a):null}}
+$("mk").onclick=()=>{const p=profile();if(!p)return;
+ $("code").value=btoa(unescape(encodeURIComponent(JSON.stringify(p))));$("out").hidden=false;
+ $("eires").innerHTML=p.e?"<h3>Your emotional intelligence results</h3>"+p.e.map((s,i)=>`<p><b>${EIN[i]}: ${s}/50</b> — ${band(s)[1]}.</p><div class="bar"><i style="width:${s*2}%"></i></div>`).join("")+"<p class='note'>Pick one or two actions to strengthen your lowest area and share them with your team if you’re comfortable.</p>":"";
+ $("out").scrollIntoView({behavior:"smooth"})};
+$("cp").onclick=()=>{$("code").select();try{navigator.clipboard.writeText($("code").value)}catch(e){document.execCommand("copy")}$("cp").textContent="Copied"};
+const DL=[["charter","Team charter"],["exec","Executive summary"],["pres","Presentation slides (upload)"],["paper","Final paper"],["eval","Teammate evaluation"]];
+$("dls").innerHTML=DL.map(d=>`<label class="f" for="d_${d[0]}">${d[1]}</label><input type="date" id="d_${d[0]}">`).join("");
+const MS={charter:[[-3,"all","Everyone adds goals, norms, and concerns on their own first"],[-1,"pm","Team session to finalize the charter, then upload"]],
+exec:[[-6,"res","Each person lists what they know and want to study; rank options instead of voting"],[-3,"all","Choose organization and issue, sleep on it one day, then confirm"],[-1,"wri","Write the half page; team reads it"]],
+pres:[[-10,"pre","Outline and speaker split (every member speaks)"],[-5,"all","Slides drafted; first timed rehearsal (4–5 minutes)"],[-2,"pre","Final slides uploaded (no changes allowed after)"]],
+paper:[[-21,"pm","Outline locked and sections assigned"],[-14,"res","Evidence and course concepts gathered per section"],[-10,"wri","Section drafts due"],[-6,"all","Team read-through with task-focused feedback"],[-3,"wri","Final edit against the rubric and formatting"],[-2,"pm","Submit-ready buffer"]],
+eval:[[-3,"all","Hold a feedback conversation, then write evaluations using your task log"]]};
+function decode(l){try{return JSON.parse(decodeURIComponent(escape(atob(l.trim()))))}catch(e){return null}}
+function assign(P){
+ const A={};RK.forEach(k=>A[k]=[]);const pairs=[];P.forEach((p,i)=>RK.forEach((k,j)=>pairs.push([p.r[j],i,k])));
+ pairs.sort((a,b)=>b[0]-a[0]);const usedM=new Set(),usedR=new Set();
+ pairs.forEach(([s,i,k])=>{if(!usedM.has(i)&&!usedR.has(k)){A[k].push(i);usedM.add(i);usedR.add(k)}});
+ RK.forEach((k,j)=>{if(!usedR.has(k)){let b=0;P.forEach((p,i)=>{if(p.r[j]>P[b].r[j])b=i});A[k].push(b)}});
+ const extra=P.map((p,i)=>i).filter(i=>!usedM.has(i));return{A,extra}}
+const avg=a=>a.reduce((x,y)=>x+y,0)/(a.length||1);
+function insights(P){
+ const out=[];const st=P.map(p=>p.c.indexOf(Math.max(...p.c)));
+ const has=s=>st.includes(s);const names=s=>P.filter((p,i)=>st[i]===s).map(p=>esc(p.n)).join(", ");
+ let t="";
+ if(has(0)&&has(1))t+=`<b>Mixed communication styles.</b> Linear-active (${names(0)}) and multi-active (${names(1)}) members can read each other as cold or chaotic. Agree on a rule: facts first, then reactions. Avoid the fundamental attribution error by asking about context before judging someone’s character. `;
+ if(has(2))t+=`<b>Reactive members (${names(2)}).</b> They listen, rarely confront, and may hide concerns, so build psychological safety: ask for input directly, use written or private input first, and never let loud voices set the answer. `;
+ if(!t)t=`<b>Similar styles.</b> Your team shares a communication style, which makes coordination easy but raises the risk of groupthink. Appoint a rotating devil’s advocate.`;
+ out.push(["Communication",t]);
+ const ds=P.map(p=>p.d),early=P.filter(p=>p.d<=2).map(p=>esc(p.n)),late=P.filter(p=>p.d>=4).map(p=>esc(p.n));
+ out.push(["Deadlines",early.length&&late.length?`Your team splits between early finishers (${early.join(", ")}) and last-minute workers (${late.join(", ")}). Treat the internal dates in the timeline as real deadlines, hold short mid-week check-ins (monitoring and backup behavior), and let early finishers draft first so others can build on their work.`:avg(ds)>=3.5?"Your team leans toward working near the deadline. That makes free riding and crunch more likely, so the plan’s internal milestones matter more than the final due dates.":"Your team prefers to finish early. Use the buffer days to review, and watch for perfectionism and over-editing."]);
+ const cnt={};P.forEach(p=>p.i.forEach(i=>cnt[i]=(cnt[i]||0)+1));
+ const shared=Object.keys(cnt).filter(i=>cnt[i]>=2).map(i=>INT[i]);
+ const kn=P.filter(p=>p.k);
+ out.push(["Choosing your organization and issue",`Teams tend to discuss what everyone already knows (common information effect) and bury unique knowledge (hidden profile). ${shared.length?"Shared interests: "+shared.join(", ")+". ":"You share few interests, so compare options carefully. "}Protocol: (1) each person writes facts and expertise silently, ${kn.length?"starting with what is on your profiles below, ":""}(2) suspend judgment, (3) rank options instead of choosing one, (4) consider alternatives one at a time, (5) define the goal as a problem to solve.`]);
+ const wc={};P.forEach(p=>p.w.forEach(w=>wc[w]=(wc[w]||0)+1));
+ const top=Object.entries(wc).sort((a,b)=>b[1]-a[1]).slice(0,2).map(e=>+e[0]);
+ const fix=["Free riding: keep the shared task log visible and revisit the contribution evidence before evaluations.","Unclear roles: review the role table below and confirm in your charter.","Conflict: separate task conflict (useful) from relationship conflict (harmful). Disagree about ideas, not people.","Crunch: follow the backward timeline and protect the buffer days.","Being talked over: use round-robin turns and written input before discussion to prevent production blocking.","Overload: rebalance tasks at each weekly check-in."];
+ if(top.length)out.push(["Your top worries",top.map(i=>`<b>${WOR[i]}</b> — ${fix[i]}`).join("<br>")]);
+ const E=P.filter(p=>p.e);
+ if(E.length){const m=[0,1,2,3,4].map(i=>avg(E.map(p=>p.e[i])));const lo=m.indexOf(Math.min(...m));
+  out.push(["Emotional intelligence",`Team averages: ${m.map((v,i)=>EIN[i]+" "+v.toFixed(0)).join(", ")}. Your lowest area is <b>${EIN[lo].toLowerCase()}</b>, so build a habit around it: ${["start each meeting with a one-word mood check","name stress early and tell the team what you need","tie each task to the team’s goal to keep motivation up","ask a teammate how they see the problem before replying","debrief tense moments within a day"][lo]}.`])}
+ return out}
+function gen(){
+ const P=$("codes").value.split("\n").map(decode).filter(Boolean);
+ if(!P.length){$("plan").innerHTML="<div class='warn'>Paste at least one valid profile code, one per line.</div>";return}
+ const {A,extra}=assign(P);const who=k=>k==="all"?"Everyone":A[k].map(i=>esc(P[i].n)).join(" and ");
+ const ei=P.filter(p=>p.e);let clim="";
+ if(ei.length){let b=0;ei.forEach((p,i)=>{if(p.e[3]+p.e[4]>ei[b].e[3]+ei[b].e[4])b=i});clim=`<p><b>Team climate check-in lead:</b> ${esc(ei[b].n)} (highest empathy and social skill scores). Runs the five-minute check-in at the end of each meeting.</p>`}
+ const stl=p=>STY[p.c.indexOf(Math.max(...p.c))];
+ let h=`<div class="card"><h2>Team snapshot</h2><div class="grid">`+P.map(p=>`<div class="mem"><b>${esc(p.n)}</b><br><span class="tag">${stl(p)}</span><span class="tag">${p.d<=2?"Early finisher":p.d>=4?"Deadline driven":"Flexible pacer"}</span><span class="tag">${["In person","Online","Mixed"][p.m]}</span>${p.i.length?"<br>Interested in: "+p.i.map(i=>INT[i]).join(", "):""}${p.k?"<br><span class='note'>Knows: "+esc(p.k)+"</span>":""}</div>`).join("")+`</div></div>`;
+ h+=`<div class="card"><h2>Role assignments</h2><div class="wrap"><table><tr><th>Role</th><th>Who</th><th>What it means</th></tr>`+RK.map(k=>`<tr><td>${RL[k][0]}</td><td><b>${who(k)}</b></td><td>${RL[k][1]}</td></tr>`).join("")+`</table></div>${extra.length?`<p>${extra.map(i=>esc(P[i].n)).join(", ")}: support the leads and rotate as devil’s advocate to guard against groupthink.</p>`:""}${clim}<p class="note">Roles come from each person’s energy ratings. Everyone contributes to every deliverable; roles clarify ownership and reduce role ambiguity.</p></div>`;
+ const items=[];DL.forEach(([k,l])=>{const v=$("d_"+k).value;if(!v)return;const base=new Date(v+"T12:00");items.push([base,"Due",l,"all",true]);MS[k].forEach(([o,r,t])=>{const d=new Date(base);d.setDate(d.getDate()+o);items.push([d,l,t,r,false])})});
+ items.sort((a,b)=>a[0]-b[0]);const now=new Date();
+ h+=`<div class="card"><h2>Timeline</h2>`+(items.length?`<div class="tl">`+items.map(([d,l,t,r,due])=>`<div class="it ${d<now?"past":""}"><span class="d">${d.toLocaleDateString(undefined,{month:"short",day:"numeric"})}</span> ${due?`<b>DUE: ${l}</b>`:`${t} <span class="tag">${l}</span> <span class="note">${who(r)}</span>`}${d<now?" <span class='note'>(date passed)</span>":""}</div>`).join("")+`</div>`:"<p class='note'>Add deadline dates above to generate milestones.</p>")+`</div>`;
+ h+=`<div class="card"><h2>Working agreements from course concepts</h2>`+insights(P).map(([t,b])=>`<h3>${t}</h3><p>${b}</p>`).join("")+`<h3>Meeting kit</h3><p>Agenda: goal, updates by owner, decisions, actions with owners and dates. Rotate facilitator, timekeeper, notetaker, and devil’s advocate. Hold decisions until everyone shares reasons, use private votes for close calls, and prefer consensus over majority when commitment matters. End with a five-minute check: what went well, what to change.</p><h3>Conflict playbook</h3><p><b>Lone dissenter:</b> talk one on one and ask questions. <b>Two people clash:</b> keep it from spreading. <b>Factions:</b> don’t vote; add alternatives and trade-offs. <b>Blame game:</b> restate the shared goal and look forward.</p></div><button class="go noprint" onclick="window.print()">Print or save as PDF</button>`;
+ $("plan").innerHTML=h}
+$("gen").onclick=gen;
+$("demo").onclick=()=>{const mk=(n,c,d,m,r,i,k,w,e)=>btoa(unescape(encodeURIComponent(JSON.stringify({n,c,d,m,t:[2],r,i,k,w,e}))));
+ $("codes").value=[mk("Ava",[3,0,0],1,1,[5,3,2,3],[1,4],"Worked at a startup",[0,5],[40,35,44,38,36]),mk("Ben",[0,3,0],5,0,[2,3,4,4],[0,1],"Took marketing",[3,2],[30,28,32,42,45]),mk("Chloe",[0,0,3],3,2,[3,5,3,2],[4,8],"Volunteers at a nonprofit",[4,1],[33,36,38,46,32]),mk("Dev",[2,1,0],4,1,[3,2,5,3],[1,5],"Finance internship",[0,3],[37,30,28,34,31])].join("\n");
+ const d=n=>{const x=new Date();x.setDate(x.getDate()+n);return x.toISOString().slice(0,10)};
+ $("d_charter").value=d(7);$("d_exec").value=d(21);$("d_pres").value=d(45);$("d_paper").value=d(50);$("d_eval").value=d(55);gen()};
+function show(n){$("s1").hidden=n!==1;$("s2").hidden=n!==2;$("t1").className=n===1?"on":"";$("t2").className=n===2?"on":""}
+$("t1").onclick=()=>show(1);$("t2").onclick=()=>show(2);
+</script>
+</body>
+</html>
